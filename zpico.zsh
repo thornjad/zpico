@@ -9,23 +9,6 @@ typeset ZP_PLUGIN_HOME=${ZP_PLUGIN_HOME:-${HOME}/.local/share/zpico/plugins}
 typeset -a ZP_PLUGINS
 typeset ZP_VERSION=0.1.0
 
-zpadd() {
-  local zmodule=${1:t} zurl=${1}
-  local zpath=${ZP_PLUGIN_HOME}/${zmodule}
-  ZP_PLUGINS+=(${zpath})
-
-  if [[ ! -d ${zpath} ]]; then
-    mkdir -p ${zpath}
-    git clone --recursive https://github.com/${zurl}.git ${zpath}
-  fi
-
-  local zscripts=(${zpath}/(init.zsh|${zmodule:t}.(zsh|plugin.zsh|zsh-theme|sh))(NOL[1]))
-  source ${zscripts}
-}
-
-alias zpclean="rm -rf $(echo ${ZP_PLUGINS} $(ls -d ${ZP_PLUGIN_HOME}/*) | tr ' ' '\n' | sort | uniq -u)"
-alias zpupdate="find ${ZP_PLUGIN_HOME} -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
-
 _zpico_version() {
   print "zpico ${ZP_VERSION}"
 }
