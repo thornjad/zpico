@@ -86,7 +86,6 @@ _zpico_clean() {
   rm -rf $(echo ${ZP_PLUGINS} $(ls -d ${ZP_PLUGIN_HOME}/*) | tr ' ' '\n' | sort | uniq -u)
 }
 
-# TODO help
 zpico() {
   local command=${1}
   case $command in
@@ -101,6 +100,10 @@ zpico() {
       ;;
     *)
       _zpico_version
+      print "\nzpico add <package-repo> [[source:<source>] [branch:<branch>]] -- Add package"
+      print "zpico update -- Update all packages"
+      print "zpico selfupdate -- Update Zpico"
+      print "zpico clean -- Clean all packages no longer in zshrc"
       ;;
   esac
 }
