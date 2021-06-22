@@ -77,6 +77,7 @@ _zpico_selfupdate() {
 }
 
 _zpico_clean() {
+  rm -rf $(echo ${ZP_PLUGINS} $(ls -d ${ZP_PLUGIN_HOME}/*) | tr ' ' '\n' | sort | uniq -u)
 }
 
 # TODO help
