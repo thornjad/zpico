@@ -65,6 +65,7 @@ _zpico_add() {
 }
 
 _zpico_update() {
+  find ${ZP_PLUGIN_HOME} -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q
 }
 
 _zpico_selfupdate() {
