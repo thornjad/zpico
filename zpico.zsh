@@ -70,8 +70,7 @@ _zpico_clean() {
 }
 
 zpico() {
-  local command=${1}
-  case $command in
+  case "$1" in
     add)
       _zpico_add "$2" "$3" "$4"
       ;;
