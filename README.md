@@ -1,6 +1,6 @@
 # ZPico
 
-The minuscule zsh package manager. No frills, no bloat, just TODO of 100% Zsh code, providing complete package management for your Zsh environment.
+The minuscule zsh package manager. No frills, no bloat, just 2 kB of 100% Zsh code, providing complete package management for your Zsh environment.
 
 Zsh package managers are abundant, but most are bloated, slow or have excessive requirements. On top of that, more than a few have been abandoned for years. Zpico does not seek to be the best of the best, rather to balance functionality against a tiny, fast footprint.
 
