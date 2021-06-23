@@ -49,7 +49,7 @@ _zpico_add() {
     git clone --recursive ${zbranchcmd} ${sourceurl} ${zpath}
   fi
 
-  local zscripts=(${zpath/(init.zsh|${zmodule:t}.(zsh|plugin.zsh|zsh-theme|sh))(NOL[1])})
+  local zscripts=(${zpath}/(init.zsh|${zmodule:t}.(zsh|plugin.zsh|zsh-theme|sh))(NOL[1]))
   source ${zscripts}
 }
 
