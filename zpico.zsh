@@ -1,5 +1,7 @@
 # Zpico -- the miniscule zsh package manager
 #
+# Version 0.2.0
+#
 # https://gitlab.com/thornjad/zpico
 # Copyright (c) 2021 Jade Michael Thornton under the terms of the ISC License
 # See the full license at https://gitlab.com/thornjad/zpico/-/raw/main/LICENSE
