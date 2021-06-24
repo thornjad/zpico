@@ -21,7 +21,7 @@ _zpico_add() {
     parts=(${(s/:/)x})
     case ${parts[1]} in
       source)
-        if (($supportedSource[(Ie)${parts[2]}])); then
+        if ((${supportedSources[(Ie)${parts[2]}]})); then
           zsource=${parts[2]}
         else
           print "Unsupported source ${parts}"
