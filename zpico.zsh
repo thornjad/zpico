@@ -55,7 +55,9 @@ _zpico_add() {
   fi
 
   local zscripts=(${zpath}/(${zuse}|init.zsh|${zmodule:t}.(zsh|plugin.zsh|zsh-theme|sh)|*.plugin.zsh)(NOL[1]))
-  source ${zscripts}
+  if [[ "$zscripts" != "" ]]; then
+    source ${zscripts}
+  fi
 }
 
 _zpico_update() {
