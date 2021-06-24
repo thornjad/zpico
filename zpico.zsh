@@ -25,7 +25,7 @@ _zpico_add() {
           zsource=${parts[2]}
         else
           print "Unsupported source ${parts}"
-          exit 1
+          return 1
         fi
         ;;
       branch)
@@ -64,7 +64,7 @@ _zpico_selfupdate() {
   if command -v curl 1>/dev/null 2>&1; then
     curl -sL --create-dirs https://gitlab.com/thornjad/zpico/-/raw/main/zpico.zsh -o ${0:A}
   else
-    print "selfupdate requires curl, please install or update manually" && exit 1
+    print "selfupdate requires curl, please install or update manually" && return 1
   fi
 }
 
