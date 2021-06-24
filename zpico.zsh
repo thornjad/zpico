@@ -15,7 +15,7 @@ _zpico_version() {
 
 _zpico_add() {
   local supportedSources=(github gitlab framagit local)
-  local zsource="github" zbranchcmd=""
+  local zsource="github" zbranchcmd="" zuse=""
   local zmodule=${1:t} zurl=${1}
   for x in "$@"; do
     parts=(${(s/:/)x})
@@ -30,6 +30,9 @@ _zpico_add() {
         ;;
       branch)
         zbranchcmd="-b ${parts[2]}"
+        ;;
+      use)
+        zuse=${parts[2]}
         ;;
       *)
         ;;
@@ -49,7 +52,7 @@ _zpico_add() {
     git clone --recursive ${zbranchcmd} ${sourceurl} ${zpath}
   fi
 
-  local zscripts=(${zpath}/(init.zsh|${zmodule:t}.(zsh|plugin.zsh|zsh-theme|sh))(NOL[1]))
+  local zscripts=(${zpath}/(${zuse}|init.zsh|${zmodule:t}.(zsh|plugin.zsh|zsh-theme|sh)|*.plugin.zsh)(NOL[1]))
   source ${zscripts}
 }
 
@@ -72,7 +75,7 @@ _zpico_clean() {
 zpico() {
   case "$1" in
     add)
-      _zpico_add "$2" "$3" "$4"
+      _zpico_add "$2" "$3" "$4" "$5"
       ;;
     update)
       ;;
@@ -82,7 +85,7 @@ zpico() {
       ;;
     *)
       _zpico_version
-      print "\nzpico add <package-repo> [[source:<source>] [branch:<branch>]] -- Add package"
+      print "\nzpico add <package-repo> [[source:<source>] [branch:<branch>] [use:<glob>]] -- Add package"
       print "zpico update -- Update all packages"
       print "zpico selfupdate -- Update Zpico"
       print "zpico clean -- Clean all packages no longer in zshrc"

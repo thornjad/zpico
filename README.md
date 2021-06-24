@@ -20,7 +20,7 @@ _This is the recommended installation path, but you can put it wherever you want
 
 ### Add packages
 
-`zpico add <package-repo> [[source:<source>] [branch:<branch>]]`
+`zpico add <package-repo> [[source:<source>] [branch:<branch>] [use:<glob>]]`
 
 This command downloads and initializes a given package. If the package has already been download, it initializes only. 
 
@@ -29,6 +29,8 @@ The required argument `package-repo` is the package's repo in `<group>/<project>
 The optional argument `source:` determines the source domain to get the package from. Currently supports `github`, `gitlab`,  `framagit` and the special `local` (see [Local packages](#local-packages) below). If omitted, defaults to `source:github`.
 
 The optional argument `branch` specifies the Git branch to use. If omitted, uses the default branch for the package (typically `master`, `main` or `trunk`).
+
+The optional argument `use` specifies the file (or file pattern) to use.
 
 #### Other URL
 
