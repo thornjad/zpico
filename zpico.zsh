@@ -1,6 +1,6 @@
 # Zpico -- the miniscule zsh package manager
 #
-# Version 0.2.0
+# Version 0.3.0
 #
 # https://gitlab.com/thornjad/zpico
 # Copyright (c) 2021 Jade Michael Thornton under the terms of the ISC License
@@ -61,7 +61,9 @@ _zpico_add() {
 }
 
 _zpico_update() {
-  find ${ZP_PLUGIN_HOME} -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q
+	echo -n "Updating... "
+  find ${ZP_PLUGIN_HOME} -type d -exec test -e '{}/.git' ';' -print0 | xargs -0I {} git -C {} pull -q --no-rebase
+	echo "Done"
 }
 
 _zpico_selfupdate() {
@@ -82,10 +84,13 @@ zpico() {
       _zpico_add "$2" "$3" "$4" "$5"
       ;;
     update)
+			_zpico_update
       ;;
     selfupdate)
+			_zpico_selfupdate
       ;;
     clean)
+			echo "Clean not yet stable"
       ;;
     *)
       _zpico_version
