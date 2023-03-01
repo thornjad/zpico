@@ -61,8 +61,14 @@ _zpico_add() {
 }
 
 _zpico_update() {
-	echo -n "Updating... "
-  find ${ZP_PLUGIN_HOME} -type d -exec test -e '{}/.git' ';' -print0 | xargs -0I {} git -C {} pull -q --no-rebase
+	echo "Updating all plugins..."
+  # For all git-controlled directories in the plugin home, execute a git pull
+  find ${ZP_PLUGIN_HOME} -type d -maxdepth 1 -exec test -e '{}/.git' ';' -print0 |
+    while IFS= read -r -d '' plugin; do
+      echo "\t$(basename $plugin)..."
+      git -C $plugin pull -q --no-rebase
+      git -C $plugin submodule update
+    done
 	echo "Done"
 }
 
