@@ -9,7 +9,7 @@
 typeset ZP_HOME=${0:A:h}
 typeset ZP_PLUGIN_HOME=${ZP_PLUGIN_HOME:-${HOME}/.local/share/zpico/plugins}
 typeset -a ZP_PLUGINS
-typeset ZP_VERSION=0.1.0
+typeset ZP_VERSION=0.3.0
 
 _zpico_version() {
   print "zpico ${ZP_VERSION}"
