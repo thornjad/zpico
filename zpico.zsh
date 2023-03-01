@@ -3,7 +3,7 @@
 # Version 0.3.0
 #
 # https://gitlab.com/thornjad/zpico
-# Copyright (c) 2021 Jade Michael Thornton under the terms of the ISC License
+# Copyright (c) 2021-2023 Jade Michael Thornton under the terms of the ISC License
 # See the full license at https://gitlab.com/thornjad/zpico/-/raw/main/LICENSE
 
 typeset ZP_HOME=${0:A:h}

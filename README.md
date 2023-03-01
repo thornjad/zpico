@@ -83,6 +83,6 @@ Replace paths with the correct ones if you've customized them, then remove any Z
 
 ## License
 
-Copyright (c) 2021 Jade Michael Thornton
+Copyright (c) 2021-2023 Jade Michael Thornton
 
 See [LICENSE](./LICENSE) for terms (it's the ISC license).
