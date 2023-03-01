@@ -9,7 +9,7 @@ Zsh package managers are abundant, but most are bloated, slow or have excessive 
 Requires `git`.
 
 ```
-curl -sL --create-dirs https://gitlab.com/thornjad/zpico/-/raw/main/zpico.zsh -o $HOME/.local/lib/zpico/zpico.zsh
+curl -sL --create-dirs https://raw.githubusercontent.com/thornjad/zpico/main/zpico.zsh -o $HOME/.local/lib/zpico/zpico.zsh
 ```
 
 Then add `source $HOME/.local/lib/zpico/zpico.zsh` to your `.zshrc` and reload your shell.
