@@ -8,7 +8,6 @@
 
 typeset ZP_HOME=${0:A:h}
 typeset ZP_PLUGIN_HOME=${ZP_PLUGIN_HOME:-${HOME}/.local/share/zpico/plugins}
-typeset -a ZP_PLUGINS
 typeset ZP_VERSION=0.3.0
 
 _zpico_version() {
@@ -47,7 +46,6 @@ _zpico_add() {
   fi
 
   local zpath=${ZP_PLUGIN_HOME}/${zmodule}
-  ZP_PLUGINS+=(${zpath})
 
   if [[ ! -d ${zpath} ]]; then
     mkdir -p ${zpath}
@@ -81,7 +79,11 @@ _zpico_selfupdate() {
 }
 
 _zpico_clean() {
-  rm -rf $(echo ${ZP_PLUGINS} $(ls -d ${ZP_PLUGIN_HOME}/*) | tr ' ' '\n' | sort | uniq -u)
+  read "choice?Remove all downloaded plugins [y/N]? "
+  if [[ ${${choice:0:1}:l} = "y" ]]; then
+    echo "Removing all downloaded plugins... "
+    find ${ZP_PLUGIN_HOME} -type d -maxdepth 1 -exec test -e '{}/.git' ';' -print0 | xargs -0tI {} rm -rf {}
+  fi
 }
 
 zpico() {
@@ -96,14 +98,14 @@ zpico() {
 			_zpico_selfupdate
       ;;
     clean)
-			echo "Clean not yet stable"
+      _zpico_clean
       ;;
     *)
       _zpico_version
       print "\nzpico add <package-repo> [[source:<source>] [branch:<branch>] [use:<glob>]] -- Add package"
       print "zpico update -- Update all packages"
       print "zpico selfupdate -- Update Zpico"
-      print "zpico clean -- Clean all packages no longer in zshrc"
+      print "zpico clean -- Remove all downloaded plugins"
       ;;
   esac
 }
