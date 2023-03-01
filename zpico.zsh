@@ -1,13 +1,13 @@
 # Zpico -- the miniscule zsh package manager
 #
-# Version 0.3.0
+# Version 0.4.0
 #
 # https://github.com/thornjad/zpico
 # Copyright (c) 2021-2023 Jade Michael Thornton under the terms of the ISC License
 
 typeset ZP_HOME=${0:A:h}
 typeset ZP_PLUGIN_HOME=${ZP_PLUGIN_HOME:-${HOME}/.local/share/zpico/plugins}
-typeset ZP_VERSION=0.3.0
+typeset ZP_VERSION=0.4.0
 
 _zpico_version() {
   print "zpico ${ZP_VERSION}"
