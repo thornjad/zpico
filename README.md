@@ -54,7 +54,7 @@ Precede all commands with `zpico`.
 |------------|-------------------------------------------------------------------------|
 | update     | update all installed packages                                           |
 | selfupdate | update Zpico. Requires `curl`. Alternatively, reinstall Zpico to update |
-| clean      | remove all packages not defined in `~/.zshrc`                           |
+| clean      | remove all packages currently isntalled                                 |
 | version    | print version info                                                      |
 
 ### Customize package installation path
