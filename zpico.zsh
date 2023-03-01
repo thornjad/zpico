@@ -73,7 +73,7 @@ _zpico_selfupdate() {
   if command -v curl 1>/dev/null 2>&1; then
     curl -sL --create-dirs https://gitlab.com/thornjad/zpico/-/raw/main/zpico.zsh -o ${0:A}
   else
-    print "selfupdate requires curl, please install or update manually" && return 1
+    print "selfupdate requires curl, please install curl or update zpico manually" && return 1
   fi
 }
 
