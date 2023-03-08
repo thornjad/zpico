@@ -76,11 +76,10 @@ _zpico_selfupdate() {
   fi
 }
 
-_zpico_clean() {
-  read "choice?Remove all downloaded plugins [y/N]? "
-  if [[ ${${choice:0:1}:l} = "y" ]]; then
-    echo "Removing all downloaded plugins... "
-    find ${ZP_PLUGIN_HOME} -type d -maxdepth 1 -exec test -e '{}/.git' ';' -print0 | xargs -0tI {} rm -rf {}
+_zpico_assert_exists() {
+  if [[ ! -d "${ZP_PLUGIN_HOME}/${1:t}"  ]]; then
+    echo "Package ${1} not found"
+    return 1
   fi
 }
 
