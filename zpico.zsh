@@ -9,9 +9,17 @@ typeset ZP_HOME=${0:A:h}
 typeset ZP_PLUGIN_HOME=${ZP_PLUGIN_HOME:-${HOME}/.local/share/zpico/plugins}
 
 _zpico_add() {
-  local supportedSources=(github gitlab framagit local)
+  local supportedSources=(github gitlab framagit codeberg local)
   local zsource="github" zbranchcmd="" zuse=""
-  local zmodule=${1:t} zurl=${1}
+  local zmodule=${1:t} zrepo=${1}
+  local zpath=${ZP_PLUGIN_HOME}/${zmodule}
+
+  if [[ -n "$(ls -A $zpath)" ]]; then
+    echo "Package path for $zmodule already exists!"
+    echo "Use 'zpico remove ${zmodule}' or remove ${zpath} first."
+    return 1
+  fi
+
   for x in "$@"; do
     parts=(${(s/:/)x})
     case ${parts[1]} in
@@ -34,12 +42,10 @@ _zpico_add() {
     esac
   done
 
-  local sourceurl="https://${zsource}.com/${zurl}.git"
+  local sourceurl="https://${zsource}.com/${zrepo}.git"
   if [[ "$zsource" =~ "local" ]]; then
-    sourceurl="${zurl}.git"
+    sourceurl="${zrepo}.git"
   fi
-
-  local zpath=${ZP_PLUGIN_HOME}/${zmodule}
 
   if [[ ! -d ${zpath} ]]; then
     mkdir -p ${zpath}
@@ -49,6 +55,19 @@ _zpico_add() {
   local zscripts=(${zpath}/(${zuse}|init.zsh|${zmodule:t}.(zsh|plugin.zsh|zsh-theme|sh)|*.plugin.zsh)(NOL[1]))
   if [[ "$zscripts" != "" ]]; then
     source ${zscripts}
+  fi
+}
+
+_zpico_remove() {
+  local zpath=${ZP_PLUGIN_HOME}/${1:t}
+  rm -rf $zpath
+}
+
+_zpico_remove_all() {
+  read "choice?Remove all downloaded plugins [y/N]? "
+  if [[ ${${choice:0:1}:l} = "y" ]]; then
+    echo "Removing all downloaded plugins... "
+    rm -rf ${ZP_PLUGIN_HOME}
   fi
 }
 
@@ -94,9 +113,25 @@ _zpico_help() {
 }
 
 zpico() {
+  local zmodule="$2"
+
   case "$1" in
     add)
       _zpico_add "$2" "$3" "$4" "$5"
+      ;;
+    remove)
+      case ${zmodule} in
+        "")
+          _zpico_help
+          ;;
+        "--all")
+          _zpico_remove_all
+          ;;
+        *)
+          echo "Removing ${zmodule}..."
+          _zpico_assert_exists $zmodule && _zpico_remove $zmodule
+          ;;
+      esac
       ;;
     update)
       case ${zmodule} in
