@@ -101,8 +101,6 @@ zpico() {
     selfupdate)
       _zpico_selfupdate
       ;;
-    clean)
-      _zpico_clean
     *)
       ;;
   esac
