@@ -3,13 +3,10 @@
 # https://github.com/thornjad/zpico
 # Copyright (c) 2021-2023 Jade Michael Thornton under the terms of the ISC License
 
-typeset ZP_HOME=${0:A:h}
-typeset ZP_PLUGIN_HOME=${ZP_PLUGIN_HOME:-${HOME}/.local/share/zpico/plugins}
 typeset ZP_VERSION=0.4.0
 
-_zpico_version() {
-  print "zpico ${ZP_VERSION}"
-}
+typeset ZP_HOME=${0:A:h}
+typeset ZP_PLUGIN_HOME=${ZP_PLUGIN_HOME:-${HOME}/.local/share/zpico/plugins}
 
 _zpico_add() {
   local supportedSources=(github gitlab framagit local)
@@ -83,6 +80,16 @@ _zpico_clean() {
   fi
 }
 
+_zpico_help() {
+  print "zpico ${ZP_VERSION}\n"
+  print "zpico add <package-repo> [[source:<source>] [branch:<branch>] [use:<glob>]] -- Add package"
+  print "zpico remove <package-repo> -- Remove package"
+  print "zpico remove --all -- Remove all packages"
+  print "zpico update <package-repo> -- Update package"
+  print "zpico update --all -- Update all packages"
+  print "zpico selfupdate -- Update Zpico"
+}
+
 zpico() {
   case "$1" in
     add)
@@ -96,13 +103,7 @@ zpico() {
       ;;
     clean)
       _zpico_clean
-      ;;
     *)
-      _zpico_version
-      print "\nzpico add <package-repo> [[source:<source>] [branch:<branch>] [use:<glob>]] -- Add package"
-      print "zpico update -- Update all packages"
-      print "zpico selfupdate -- Update Zpico"
-      print "zpico clean -- Remove all downloaded plugins"
       ;;
   esac
 }
