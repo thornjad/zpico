@@ -3,10 +3,10 @@
 # https://github.com/thornjad/zpico
 # Copyright (c) 2021-2023 Jade Michael Thornton under the terms of the ISC License
 
-typeset ZP_VERSION=0.5.0
+declare ZP_VERSION=0.5.0
 
-typeset ZP_HOME=${0:A:h}
-typeset ZP_PLUGIN_HOME=${ZP_PLUGIN_HOME:-${HOME}/.local/share/zpico/plugins}
+declare ZP_HOME=${0:A:h}
+declare ZP_PLUGIN_HOME=${ZP_PLUGIN_HOME:-${HOME}/.local/share/zpico/plugins}
 
 _zpico_add() {
   local supportedSources=(github gitlab framagit codeberg local)
