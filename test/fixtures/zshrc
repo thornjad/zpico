@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+# Prepare tests
+tests=()
+export ZPICO_HOME="/tmp/zpico-tests-$RANDOM"
