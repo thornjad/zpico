@@ -53,13 +53,17 @@ _zpico_add() {
 }
 
 _zpico_update() {
+  git -C "${ZP_PLUGIN_HOME}/${1:t}" pull -q --no-rebase
+  git -C "${ZP_PLUGIN_HOME}/${1:t}" submodule update
+}
+
+_zpico_update_all() {
   echo "Updating all plugins..."
   # For all git-controlled directories in the plugin home, execute a git pull
   find ${ZP_PLUGIN_HOME} -type d -maxdepth 1 -exec test -e '{}/.git' ';' -print0 |
     while IFS= read -r -d '' plugin; do
       echo "\t$(basename $plugin)..."
-      git -C $plugin pull -q --no-rebase
-      git -C $plugin submodule update
+      _zpico_update $plugin
     done
   echo "Done"
 }
@@ -96,7 +100,18 @@ zpico() {
       _zpico_add "$2" "$3" "$4" "$5"
       ;;
     update)
-      _zpico_update
+      case ${zmodule} in
+        "")
+          _zpico_help
+          ;;
+        "--all")
+          _zpico_update_all
+          ;;
+        *)
+          echo "Updating ${zmodule}..."
+          _zpico_assert_exists $zmodule && _zpico_update $zmodule
+          ;;
+      esac
       ;;
     selfupdate)
       _zpico_selfupdate
