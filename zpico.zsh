@@ -14,12 +14,6 @@ _zpico_add() {
   local zmodule=${1:t} zrepo=${1}
   local zpath=${ZP_PLUGIN_HOME}/${zmodule}
 
-  if [[ -n "$(ls -A $zpath)" ]]; then
-    echo "Package path for $zmodule already exists!"
-    echo "Use 'zpico remove ${zmodule}' or remove ${zpath} first."
-    return 1
-  fi
-
   for x in "$@"; do
     parts=(${(s/:/)x})
     case ${parts[1]} in
