@@ -11,7 +11,7 @@ typeset ZP_PLUGIN_HOME=${ZP_PLUGIN_HOME:-${HOME}/.local/share/zpico/plugins}
 
 _zpico_add() {
   local supportedSources=(github gitlab framagit codeberg local)
-  local zsource="github" zbranchcmd="" zuse=""
+  local zsource="github" zbranch="" zuse=""
   local zmodule=${1:t} zrepo=${1}
   local zpath=${ZP_PLUGIN_HOME}/${zmodule}
 
@@ -27,7 +27,7 @@ _zpico_add() {
         fi
         ;;
       branch)
-        zbranchcmd="-b ${parts[2]}"
+        zbranch=${parts[2]}
         ;;
       use)
         zuse=${parts[2]}
@@ -44,7 +44,7 @@ _zpico_add() {
 
   if [[ ! -d ${zpath} ]]; then
     mkdir -p ${zpath}
-    git clone --recursive ${zbranchcmd} ${sourceurl} ${zpath}
+    git clone --recursive ${zbranch:+-b} ${zbranch} ${sourceurl} ${zpath}
   fi
 
   local zscripts=(${zpath}/(${zuse}|init.zsh|${zmodule:t}.(zsh|plugin.zsh|zsh-theme|sh)|*.plugin.zsh)(NOL[1]))
