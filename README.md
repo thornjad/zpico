@@ -22,11 +22,11 @@ _This is the recommended installation path, but you can put it wherever you want
 
 `zpico add <package-repo> [[source:<source>] [branch:<branch>] [use:<glob>]]`
 
-This command downloads and initializes a given package. If the package has already been download, it initializes only. 
+This command downloads and initializes a given package. If the package has already been downloaded, it initializes only.
 
 The required argument `package-repo` is the package's repo in `<group>/<project>` format (supports Gitlab subgroups with `source:gitlab`).
 
-The optional argument `source:` determines the source domain to get the package from. Currently supports `github`, `gitlab`,  `framagit` and the special `local` (see [Local packages](#local-packages) below). If omitted, defaults to `source:github`.
+The optional argument `source:` determines the source domain to get the package from. Currently supports `github`, `gitlab`, `framagit`, `codeberg` and the special `local` (see [Local packages](#local-packages) below). If omitted, defaults to `source:github`.
 
 The optional argument `branch` specifies the Git branch to use. If omitted, uses the default branch for the package (typically `master`, `main` or `trunk`).
 
@@ -34,9 +34,9 @@ The optional argument `use` specifies the file (or file pattern) to use.
 
 #### Other URL
 
-Zpico can also load packages from arbitrary URLs.
+Zpico can also load packages from arbitrary git-cloneable URLs.
 
-`zpico add <package-url> [branch:<branch>]`
+`zpico add https://example.com/user/repo.git [branch:<branch>]`
 
 The optional argument `branch` works the same as specified above.
 
@@ -50,17 +50,19 @@ The optional argument `branch` works the same as specified above.
 
 Precede all commands with `zpico`.
 
-| command    | description                                                             |
-|------------|-------------------------------------------------------------------------|
-| update     | update all installed packages                                           |
-| selfupdate | update Zpico. Requires `curl`. Alternatively, reinstall Zpico to update |
-| clean      | remove all packages currently installed                                 |
-| help       | print help text                                                         |
-| version    | print version info                                                      |
+| command          | description                                                             |
+|------------------|-------------------------------------------------------------------------|
+| remove \<pkg\>   | remove a specific package                                               |
+| remove --all     | remove all installed packages                                           |
+| update \<pkg\>   | update a specific package                                               |
+| update --all     | update all installed packages                                           |
+| selfupdate       | update zpico (requires `curl`, or reinstall manually)                   |
+| help             | print help text                                                         |
+| version          | print version info                                                      |
 
 ### Customize package installation path
 
-The default package installation path is `~/.local/share/zpico/`. Customize this by setting `ZP_PLUGIN_HOME` prior to loading Zpico in your `~/.zshrc`.
+The default package installation path is `~/.local/share/zpico/plugins/`. Customize this by setting `ZP_PLUGIN_HOME` prior to loading Zpico in your `~/.zshrc`.
 
 ## Example
 
@@ -84,6 +86,6 @@ Replace paths with the correct ones if you've customized them, then remove any Z
 
 ## License
 
-Copyright (c) 2021-2023 Jade Michael Thornton
+Copyright (c) 2021-2026 Jade Michael Thornton
 
 See [LICENSE](./LICENSE) for terms (it's the ISC license).
