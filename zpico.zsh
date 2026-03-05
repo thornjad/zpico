@@ -76,7 +76,7 @@ _zpico_remove_all() {
 _zpico_update() {
   local zpath=${ZP_PLUGIN_HOME}/${${1:t}%.git}
   git -C "${zpath}" pull -q --no-rebase
-  git -C "${zpath}" submodule update
+  git -C "${zpath}" submodule update --init --recursive
 }
 
 _zpico_update_all() {
