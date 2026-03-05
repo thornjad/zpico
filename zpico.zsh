@@ -5,7 +5,6 @@
 
 typeset ZP_VERSION=0.6.0
 
-typeset ZP_HOME=${0:A:h}
 typeset _ZP_SELF=${0:A}
 typeset ZP_PLUGIN_HOME=${ZP_PLUGIN_HOME:-${HOME}/.local/share/zpico/plugins}
 
@@ -129,7 +128,11 @@ zpico() {
 
   case "$1" in
     add)
-      _zpico_add "${@:2}"
+      if [[ -z "$2" ]]; then
+        _zpico_help
+      else
+        _zpico_add "${@:2}"
+      fi
       ;;
     remove)
       case ${zmodule} in
