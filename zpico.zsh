@@ -37,13 +37,14 @@ _zpico_add() {
     esac
   done
 
+  local -A _sourcedomains=(github github.com gitlab gitlab.com framagit framagit.org codeberg codeberg.org)
   local sourceurl=""
   if [[ "$zrepo" = *"://"* ]]; then
     sourceurl="${zrepo}"
   elif [[ "$zsource" = "local" ]]; then
     sourceurl="${zrepo}"
   else
-    sourceurl="https://${zsource}.com/${zrepo}.git"
+    sourceurl="https://${_sourcedomains[$zsource]}/${zrepo}.git"
   fi
 
   if [[ ! -d ${zpath} ]]; then
