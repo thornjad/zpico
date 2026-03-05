@@ -1,4 +1,4 @@
-# Zpico -- the miniscule zsh package manager
+# zpico -- the minuscule zsh package manager
 #
 # https://github.com/thornjad/zpico
 # Copyright (c) 2021-2023 Jade Michael Thornton under the terms of the ISC License
@@ -22,7 +22,7 @@ _zpico_add() {
         if ((${supportedSources[(Ie)${parts[2]}]})); then
           zsource=${parts[2]}
         else
-          print "Unsupported source ${parts}"
+          print "unsupported source ${parts[2]}"
           return 1
         fi
         ;;
@@ -68,7 +68,7 @@ _zpico_remove() {
 _zpico_remove_all() {
   read "choice?Remove all downloaded plugins [y/N]? "
   if [[ ${${choice:0:1}:l} = "y" ]]; then
-    echo "Removing all downloaded plugins... "
+    print "removing all downloaded plugins..."
     rm -rf ${ZP_PLUGIN_HOME}
   fi
 }
@@ -80,14 +80,13 @@ _zpico_update() {
 }
 
 _zpico_update_all() {
-  echo "Updating all plugins..."
-  # For all git-controlled directories in the plugin home, execute a git pull
-  find ${ZP_PLUGIN_HOME} -type d -maxdepth 1 -exec test -e '{}/.git' ';' -print0 |
-    while IFS= read -r -d '' plugin; do
-      echo "\t$(basename $plugin)..."
-      _zpico_update $plugin
-    done
-  echo "Done"
+  print "updating all plugins..."
+  for plugin in ${ZP_PLUGIN_HOME}/*(N/); do
+    [[ -d "${plugin}/.git" ]] || continue
+    print "  ${plugin:t}..."
+    _zpico_update ${plugin:t}
+  done
+  print "done"
 }
 
 _zpico_selfupdate() {
@@ -101,19 +100,19 @@ _zpico_selfupdate() {
 
 _zpico_assert_exists() {
   if [[ ! -d "${ZP_PLUGIN_HOME}/${${1:t}%.git}" ]]; then
-    echo "Package ${1} not found"
+    print "package ${1} not found"
     return 1
   fi
 }
 
 _zpico_help() {
   print "zpico ${ZP_VERSION}\n"
-  print "zpico add <package-repo> [[source:<source>] [branch:<branch>] [use:<glob>]] -- Add package"
-  print "zpico remove <package-repo> -- Remove package"
-  print "zpico remove --all -- Remove all packages"
-  print "zpico update <package-repo> -- Update package"
-  print "zpico update --all -- Update all packages"
-  print "zpico selfupdate -- Update Zpico"
+  print "zpico add <package-repo> [[source:<source>] [branch:<branch>] [use:<glob>]] -- add package"
+  print "zpico remove <package-repo> -- remove package"
+  print "zpico remove --all -- remove all packages"
+  print "zpico update <package-repo> -- update package"
+  print "zpico update --all -- update all packages"
+  print "zpico selfupdate -- update zpico"
   print "zpico version -- print version"
   print "zpico help -- print this help"
 }
@@ -134,7 +133,7 @@ zpico() {
           _zpico_remove_all
           ;;
         *)
-          echo "Removing ${zmodule}..."
+          print "removing ${zmodule}..."
           _zpico_assert_exists $zmodule && _zpico_remove $zmodule
           ;;
       esac
@@ -148,7 +147,7 @@ zpico() {
           _zpico_update_all
           ;;
         *)
-          echo "Updating ${zmodule}..."
+          print "updating ${zmodule}..."
           _zpico_assert_exists $zmodule && _zpico_update $zmodule
           ;;
       esac
