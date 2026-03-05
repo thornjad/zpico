@@ -44,7 +44,11 @@ _zpico_add() {
 
   if [[ ! -d ${zpath} ]]; then
     mkdir -p ${zpath}
-    git clone --recursive ${zbranch:+-b} ${zbranch} ${sourceurl} ${zpath}
+    if ! git clone --recursive ${zbranch:+-b} ${zbranch} ${sourceurl} ${zpath}; then
+      rm -rf ${zpath}
+      print "failed to clone ${sourceurl}"
+      return 1
+    fi
   fi
 
   local zscripts=(${zpath}/(${zuse}|init.zsh|${zmodule:t}.(zsh|plugin.zsh|zsh-theme|sh)|*.plugin.zsh)(NOL[1]))
