@@ -12,7 +12,7 @@ typeset ZP_PLUGIN_HOME=${ZP_PLUGIN_HOME:-${HOME}/.local/share/zpico/plugins}
 _zpico_add() {
   local supportedSources=(github gitlab framagit codeberg local)
   local zsource="github" zbranch="" zuse=""
-  local zmodule=${1:t} zrepo=${1}
+  local zmodule=${${1:t}%.git} zrepo=${1}
   local zpath=${ZP_PLUGIN_HOME}/${zmodule}
 
   for x in "$@"; do
@@ -55,15 +55,14 @@ _zpico_add() {
     fi
   fi
 
-  local zscripts=(${zpath}/(${zuse}|init.zsh|${zmodule:t}.(zsh|plugin.zsh|zsh-theme|sh)|*.plugin.zsh)(NOL[1]))
+  local zscripts=(${zpath}/(${zuse}|init.zsh|${zmodule}.(zsh|plugin.zsh|zsh-theme|sh)|*.plugin.zsh)(NOL[1]))
   if [[ "$zscripts" != "" ]]; then
     source ${zscripts}
   fi
 }
 
 _zpico_remove() {
-  local zpath=${ZP_PLUGIN_HOME}/${1:t}
-  rm -rf $zpath
+  rm -rf ${ZP_PLUGIN_HOME}/${${1:t}%.git}
 }
 
 _zpico_remove_all() {
@@ -75,8 +74,9 @@ _zpico_remove_all() {
 }
 
 _zpico_update() {
-  git -C "${ZP_PLUGIN_HOME}/${1:t}" pull -q --no-rebase
-  git -C "${ZP_PLUGIN_HOME}/${1:t}" submodule update
+  local zpath=${ZP_PLUGIN_HOME}/${${1:t}%.git}
+  git -C "${zpath}" pull -q --no-rebase
+  git -C "${zpath}" submodule update
 }
 
 _zpico_update_all() {
@@ -100,7 +100,7 @@ _zpico_selfupdate() {
 }
 
 _zpico_assert_exists() {
-  if [[ ! -d "${ZP_PLUGIN_HOME}/${1:t}"  ]]; then
+  if [[ ! -d "${ZP_PLUGIN_HOME}/${${1:t}%.git}" ]]; then
     echo "Package ${1} not found"
     return 1
   fi
