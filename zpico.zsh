@@ -6,6 +6,7 @@
 typeset ZP_VERSION=0.5.0
 
 typeset ZP_HOME=${0:A:h}
+typeset _ZP_SELF=${0:A}
 typeset ZP_PLUGIN_HOME=${ZP_PLUGIN_HOME:-${HOME}/.local/share/zpico/plugins}
 
 _zpico_add() {
@@ -83,7 +84,8 @@ _zpico_update_all() {
 
 _zpico_selfupdate() {
   if command -v curl 1>/dev/null 2>&1; then
-    curl -sL --create-dirs https://raw.githubusercontent.com/thornjad/zpico/main/zpico.zsh -o ${0:A}
+    curl -sL --create-dirs https://raw.githubusercontent.com/thornjad/zpico/main/zpico.zsh -o ${_ZP_SELF}
+    print "updated zpico (reload shell to apply)"
   else
     print "selfupdate requires curl, please install curl or update zpico manually" && return 1
   fi
