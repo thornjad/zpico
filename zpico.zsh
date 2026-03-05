@@ -92,8 +92,14 @@ _zpico_update_all() {
 
 _zpico_selfupdate() {
   if command -v curl 1>/dev/null 2>&1; then
-    curl -sL --create-dirs https://raw.githubusercontent.com/thornjad/zpico/main/zpico.zsh -o ${_ZP_SELF}
-    print "updated zpico (reload shell to apply)"
+    local tmpfile="${_ZP_SELF}.tmp.$$"
+    if curl -sfL https://raw.githubusercontent.com/thornjad/zpico/main/zpico.zsh -o "${tmpfile}"; then
+      mv "${tmpfile}" "${_ZP_SELF}"
+      print "updated zpico (reload shell to apply)"
+    else
+      rm -f "${tmpfile}"
+      print "selfupdate failed" && return 1
+    fi
   else
     print "selfupdate requires curl, please install curl or update zpico manually" && return 1
   fi
