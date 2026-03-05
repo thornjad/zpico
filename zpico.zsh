@@ -37,9 +37,13 @@ _zpico_add() {
     esac
   done
 
-  local sourceurl="https://${zsource}.com/${zrepo}.git"
-  if [[ "$zsource" =~ "local" ]]; then
-    sourceurl="${zrepo}.git"
+  local sourceurl=""
+  if [[ "$zrepo" = *"://"* ]]; then
+    sourceurl="${zrepo}"
+  elif [[ "$zsource" = "local" ]]; then
+    sourceurl="${zrepo}"
+  else
+    sourceurl="https://${zsource}.com/${zrepo}.git"
   fi
 
   if [[ ! -d ${zpath} ]]; then
