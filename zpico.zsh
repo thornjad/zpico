@@ -1,9 +1,9 @@
 # zpico -- the minuscule zsh package manager
 #
 # https://github.com/thornjad/zpico
-# Copyright (c) 2021-2023 Jade Michael Thornton under the terms of the ISC License
+# Copyright (c) 2021-2026 Jade Michael Thornton under the terms of the ISC License
 
-typeset ZP_VERSION=0.5.0
+typeset ZP_VERSION=0.6.0
 
 typeset ZP_HOME=${0:A:h}
 typeset _ZP_SELF=${0:A}
