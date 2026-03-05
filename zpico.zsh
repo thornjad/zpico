@@ -114,6 +114,8 @@ _zpico_help() {
   print "zpico update <package-repo> -- Update package"
   print "zpico update --all -- Update all packages"
   print "zpico selfupdate -- Update Zpico"
+  print "zpico version -- print version"
+  print "zpico help -- print this help"
 }
 
 zpico() {
@@ -121,7 +123,7 @@ zpico() {
 
   case "$1" in
     add)
-      _zpico_add "$2" "$3" "$4" "$5"
+      _zpico_add "${@:2}"
       ;;
     remove)
       case ${zmodule} in
@@ -154,7 +156,16 @@ zpico() {
     selfupdate)
       _zpico_selfupdate
       ;;
+    help|"")
+      _zpico_help
+      ;;
+    version)
+      print "zpico ${ZP_VERSION}"
+      ;;
     *)
+      print "unknown command: $1"
+      _zpico_help
+      return 1
       ;;
   esac
 }
