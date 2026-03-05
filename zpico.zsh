@@ -46,7 +46,8 @@ _zpico_add() {
     sourceurl="https://${_sourcedomains[$zsource]}/${zrepo}.git"
   fi
 
-  if [[ ! -d ${zpath} ]]; then
+  if [[ ! -d "${zpath}/.git" ]]; then
+    rm -rf ${zpath} 2>/dev/null
     mkdir -p ${zpath}
     if ! git clone --recursive ${zbranch:+-b} ${zbranch} ${sourceurl} ${zpath}; then
       rm -rf ${zpath}
