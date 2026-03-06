@@ -3,7 +3,7 @@
 # https://github.com/thornjad/zpico
 # Copyright (c) 2021-2026 Jade Michael Thornton under the terms of the ISC License
 
-typeset ZP_VERSION=0.6.0
+typeset ZP_VERSION=1.0.0
 
 typeset _ZP_SELF=${0:A}
 typeset ZP_PLUGIN_HOME=${ZP_PLUGIN_HOME:-${HOME}/.local/share/zpico/plugins}
@@ -14,6 +14,7 @@ _zpico_add() {
   local zmodule=${${1:t}%.git} zrepo=${1}
   local zpath=${ZP_PLUGIN_HOME}/${zmodule}
 
+  local x parts
   for x in "$@"; do
     parts=(${(s/:/)x})
     case ${parts[1]} in
@@ -43,7 +44,7 @@ _zpico_add() {
   elif [[ "$zsource" = "local" ]]; then
     sourceurl="${zrepo}"
   else
-    sourceurl="https://${_sourcedomains[$zsource]}/${zrepo}.git"
+    sourceurl="https://${_sourcedomains[$zsource]}/${zrepo%.git}.git"
   fi
 
   if [[ ! -d "${zpath}/.git" ]]; then
