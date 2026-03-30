@@ -89,3 +89,7 @@ Replace paths with the correct ones if you've customized them, then remove any Z
 Copyright (c) 2021-2026 Jade Michael Thornton
 
 See [LICENSE](./LICENSE) for terms (it's the ISC license).
+
+---
+
+Found this useful? [Buy me a coffee!](https://buymeacoffee.com/jademichaelthornton)
